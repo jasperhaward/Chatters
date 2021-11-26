@@ -1,0 +1,15 @@
+html,
+body {
+    margin: 0;
+    height: 100%;
+    font-family: proxima-nova;
+}
+
+body {
+    background: {
+        image: url("/images/background.jpg");
+        position: center;
+        repeat: no-repeat;
+        size: cover;
+    }
+}

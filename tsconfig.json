@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "paths": {
+            "@components": ["./src/client/components/index.tsx"],
+            "@hooks": ["./src/client/hooks/index.tsx"],
+            "@styles": ["./src/client/styles/index.tsx"]
+        }
+    },
+    "include": ["src/client/**/*"]
+}
