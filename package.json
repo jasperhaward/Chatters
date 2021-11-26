@@ -2,7 +2,6 @@
     "name": "chat",
     "version": "1.0.0",
     "scripts": {
-        "start": "npm run watch:client",
         "watch:client": "webpack --watch --color --env target=development",
         "build:client": "webpack --color --env target=production",
         "watch:server": "nodemon --config ./nodemon.config.json",
