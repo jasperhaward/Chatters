@@ -1,5 +1,6 @@
 import type { VNode } from "preact";
 import { Link, LinkProps } from "@components";
+
 import styles from "./styles.module.scss";
 
 export interface NavbarProps {

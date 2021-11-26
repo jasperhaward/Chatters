@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import { History } from "./types";
 
-function useHistory(): History {
+export function useHistory(): History {
     const [path, setPath] = useState<string>(location.pathname);
 
     const { pushState } = history;
@@ -24,4 +24,4 @@ function useHistory(): History {
     return { path, push };
 }
 
-export { History, useHistory };
+export * from "./types";
