@@ -8,9 +8,15 @@ export interface NavbarProps {
 }
 
 export function Navbar({ children }: NavbarProps) {
-    return <div class={styles.navbar}>{children}</div>;
+    return <div className={styles.navbar}>{children}</div>;
 }
 
 export function Navlink(props: LinkProps) {
-    return <Link activeClass={styles.active} {...props}></Link>;
+    return (
+        <Link
+            className={styles.navlink}
+            activeClassName={styles.active}
+            {...props}
+        />
+    );
 }

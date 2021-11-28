@@ -1,8 +1,9 @@
 declare namespace StylesModuleScssNamespace {
   export interface IStylesModuleScss {
-    active: string;
-    navbar: string;
-    navlink: string;
+    footerbar: string;
+    left: string;
+    middle: string;
+    right: string;
   }
 }
 

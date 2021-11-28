@@ -1,0 +1,29 @@
+@use "@styles/colours" as colours;
+@use "@styles/fonts" as fonts;
+@use "@styles/styling" as styling;
+
+.text {
+    color: colours.$dark-grey;
+    font-size: fonts.$xs-font-size;
+    letter-spacing: fonts.$narrow-letter-spacing;
+}
+
+.links {
+    display: flex;
+    width: min-content;
+    margin: 0 auto;
+
+    a {
+        margin: {
+            left: 6px;
+            right: 6px;
+        }
+        color: colours.$white;
+        font-size: fonts.$lg-font-size;
+        transition: 0.3s;
+
+        &:hover {
+            color: colours.$grey;
+        }
+    }
+}
