@@ -5,6 +5,7 @@ module.exports = (env) => ({
         filename: "[name].bundle.js",
         path: __dirname + "/public/js",
     },
+    devtool: env.target === "development" ? "eval-source-map" : false,
     module: {
         rules: [
             {
@@ -25,7 +26,6 @@ module.exports = (env) => ({
                 test: /\.module\.scss$/,
                 use: [
                     "style-loader",
-                    "@teamsupercell/typings-for-css-modules-loader",
                     {
                         loader: "css-loader",
                         options: {
@@ -53,5 +53,4 @@ module.exports = (env) => ({
             "@styles": __dirname + "/src/client/styles",
         },
     },
-    devtool: env.target === "development" ? "eval-source-map" : false,
 });
