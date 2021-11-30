@@ -2,6 +2,13 @@
 @use "@styles/fonts" as fonts;
 @use "@styles/styling" as styling;
 
+.app {    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: styling.$page-background-colour;
+}
+
 .text {
     color: colours.$dark-grey;
     font-size: fonts.$xs-font-size;

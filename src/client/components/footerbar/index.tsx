@@ -6,7 +6,7 @@ export interface FooterbarProps {
 }
 
 export function Footerbar({ children }: FooterbarProps) {
-    return <div className={styles.footerbar}>{children}</div>;
+    return <footer className={styles.footerbar}>{children}</footer>;
 }
 
 export interface FooterbarContentProps {

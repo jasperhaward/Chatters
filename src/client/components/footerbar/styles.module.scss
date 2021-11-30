@@ -7,7 +7,7 @@
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     padding: 10px;
-    box-shadow: styling.$page-box-shadow;
+    background-color: styling.$interface-background-colour;
 
     .left {
         grid-area: left;

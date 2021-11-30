@@ -10,8 +10,9 @@ import {
 } from "@components";
 import styles from "./App.module.scss";
 
-import HomePage from "./routes/index";
+import HomePage from "./routes/home";
 import ChatPage from "./routes/chat";
+import AboutPage from "./routes/about";
 import NotFoundPage from "./routes/notfound";
 
 function App() {
@@ -23,16 +24,19 @@ function App() {
                 return <HomePage />;
             case "/chat":
                 return <ChatPage />;
+            case "/about":
+                return <AboutPage />;
             default:
                 return <NotFoundPage />;
         }
     }
 
     return (
-        <>
+        <div className={styles.app}>
             <Navbar>
                 <Navlink href="/">HOME</Navlink>
                 <Navlink href="/chat">CHAT</Navlink>
+                <Navlink href="/about">ABOUT</Navlink>
             </Navbar>
             <Container>{render()}</Container>
             <Footerbar>
@@ -63,7 +67,7 @@ function App() {
                     </span>
                 </FooterbarContent>
             </Footerbar>
-        </>
+        </div>
     );
 }
 

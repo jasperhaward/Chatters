@@ -7,25 +7,20 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: styling.$page-box-shadow;
+    background-color: styling.$interface-background-colour;
 }
 
 .navlink {
     font-size: fonts.$xs-font-size;
     font-weight: fonts.$light-font-weight;
-    letter-spacing: fonts.$wide-letter-spacing;
+    letter-spacing: fonts.$normal-letter-spacing;
     text-decoration: none;
     color: colours.$grey;
     padding: 10px;
     transition: 0.3s;
 
-    &:hover {
+    &:hover,
+    &.active  {
         color: colours.$white;
-    }
-
-    &.active {
-        color: colours.$white;
-        text-decoration: underline;
-        text-underline-offset: 5px;
     }
 }

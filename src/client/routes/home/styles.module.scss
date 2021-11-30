@@ -1,0 +1,23 @@
+@use "@styles/styling" as styling;
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.page {
+    padding: 30px 60px;
+    text-align: center;
+    color: colours.$white;
+
+    .title {
+        line-height: 60px;
+        font-size: 50px;
+        font-weight: fonts.$light-font-weight;
+        margin-right: -30px;
+        letter-spacing: 30px;
+    }
+
+    .subtitle {
+        font-size: fonts.$lg-font-size;
+        font-weight: fonts.$light-font-weight;
+        letter-spacing: fonts.$normal-letter-spacing;
+    }
+}
