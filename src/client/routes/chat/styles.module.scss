@@ -1,0 +1,7 @@
+@use "@styles/styling" as styling;
+
+.page {
+    height: inherit;
+    width: 70%;
+    background-color: styling.$interface-background-colour;
+}

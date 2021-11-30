@@ -1,7 +1,7 @@
-import { Link } from "@components";
+import styles from "./styles.module.scss";
 
 function ChatPage() {
-    return <Link href="/">HOME</Link>;
+    return <div className={styles.page}>Chat page</div>;
 }
 
 export default ChatPage;
