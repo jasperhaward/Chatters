@@ -1,0 +1,9 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.link {
+    color: colours.$white;
+    transition: 0.3s;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+}

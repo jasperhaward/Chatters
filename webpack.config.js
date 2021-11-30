@@ -10,20 +10,6 @@ module.exports = (env) => ({
         rules: [
             {
                 test: /\.scss$/,
-                exclude: /\.module\.scss$/,
-                use: [
-                    "style-loader",
-                    {
-                        loader: "css-loader",
-                        options: {
-                            url: false,
-                        },
-                    },
-                    "sass-loader",
-                ],
-            },
-            {
-                test: /\.module\.scss$/,
                 use: [
                     "style-loader",
                     {

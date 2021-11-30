@@ -1,5 +1,5 @@
 import type { VNode } from "preact";
-import styles from "./styles.module.scss";
+import styles from "./styles.scss";
 
 export interface ContainerProps {
     children: VNode | VNode[];

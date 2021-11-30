@@ -1,0 +1,12 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.page {
+    text-align: center;
+
+    div {
+        color: colours.$white;
+        font-size: fonts.$lg-font-size;
+        font-weight: fonts.$light-font-weight;
+    }
+}

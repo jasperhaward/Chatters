@@ -1,11 +1,9 @@
-@use "@styles/styling" as styling;
 @use "@styles/fonts" as fonts;
 @use "@styles/colours" as colours;
 
 .page {
-    padding: 30px 60px;
-    text-align: center;
     color: colours.$white;
+    text-align: center;
 
     .title {
         line-height: 60px;

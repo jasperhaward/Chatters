@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "./styles.scss";
 
 function ChatPage() {
     return <div className={styles.page}>Chat page</div>;

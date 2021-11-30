@@ -1,4 +1,5 @@
 import type { VNode } from "preact";
+import styles from "./styles.scss";
 
 export interface LinkProps {
     href: string;
@@ -10,29 +11,34 @@ export interface LinkProps {
 
 export function Link({
     href,
-    className,
-    activeClassName,
+    className = styles.link,
+    activeClassName = "",
     external,
     children,
 }: LinkProps) {
     const onClick = (event: MouseEvent) => {
-        event.preventDefault();
-        history.pushState(null, null, href);
+        if (!external) {
+            event.preventDefault();
+            history.pushState(null, null, href);
+        }
     };
 
-    if (location.pathname === href) {
-        // prettier-ignore
-        className = className 
-            ? className + " " + activeClassName 
-            : activeClassName;
-    }
-
-    const props = external
-        ? { target: "_blank", rel: "noreferrer nofollow" }
-        : { onClick };
+    const props = external && {
+        target: "_blank",
+        rel: "noreferrer nofollow",
+    };
 
     return (
-        <a href={href} className={className} {...props}>
+        <a
+            href={href}
+            className={
+                location.pathname === href
+                    ? className + " " + activeClassName
+                    : className
+            }
+            {...props}
+            onClick={onClick}
+        >
             {children}
         </a>
     );

@@ -1,14 +1,14 @@
 import { useHistory } from "@hooks";
 import {
     Navbar,
-    Navlink,
+    NavLink,
     Container,
     Footerbar,
     FooterbarContent,
     Icon,
     Link,
 } from "@components";
-import styles from "./App.module.scss";
+import styles from "./App.scss";
 
 import HomePage from "./routes/home";
 import ChatPage from "./routes/chat";
@@ -34,9 +34,9 @@ function App() {
     return (
         <div className={styles.app}>
             <Navbar>
-                <Navlink href="/">HOME</Navlink>
-                <Navlink href="/chat">CHAT</Navlink>
-                <Navlink href="/about">ABOUT</Navlink>
+                <NavLink href="/">HOME</NavLink>
+                <NavLink href="/chat">CHAT</NavLink>
+                <NavLink href="/about">ABOUT</NavLink>
             </Navbar>
             <Container>{render()}</Container>
             <Footerbar>
