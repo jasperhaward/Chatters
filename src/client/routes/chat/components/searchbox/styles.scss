@@ -1,0 +1,31 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+.search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 38px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    border-radius: styling.$border-radius;
+    background-color: colours.$dark-background-colour;
+
+    input {
+        width: 100%;
+        border: none;
+        outline: none;
+        color: colours.$white;
+        background-color: transparent;
+        font-size: fonts.$sm-font-size;
+
+        &:focus::placeholder {
+            color: colours.$white;
+        }
+
+        &::placeholder {
+            color: colours.$grey;
+        }
+    }
+}

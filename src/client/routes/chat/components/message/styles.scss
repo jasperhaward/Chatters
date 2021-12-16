@@ -1,0 +1,57 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+$icon-size: 24px;
+
+.header {
+    margin-left: $icon-size + 8px;
+    color: colours.$grey;
+    font-size: fonts.$sm-font-size;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+
+    &.right {
+        .content {
+            margin-left: $icon-size;
+
+            div {
+                float: right;
+                color: black;
+                background-color: colours.$primary-colour;
+            }
+        }
+    }
+
+    svg {
+        font-size: $icon-size;
+        color: colours.$white;
+    }
+
+    .content {
+        width: 100%;
+        padding: {
+            left: 5px;
+            right: 5px;
+        }
+
+        div {
+            width: fit-content;
+            padding: 4px 8px;
+            border-radius: styling.$border-radius;
+            box-sizing: border-box;
+            color: colours.$white;
+            background-color: colours.$dark-background-colour;
+            font-size: fonts.$md-font-size;
+        }
+    }
+
+    .stamp {
+        color: colours.$grey;
+        font-size: fonts.$sm-font-size;
+        margin-left: 3px;
+    }
+}

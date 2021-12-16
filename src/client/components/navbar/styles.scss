@@ -1,26 +1,25 @@
 @use "@styles/colours" as colours;
 @use "@styles/fonts" as fonts;
-@use "@styles/styling" as styling;
 
 .navbar {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-color: styling.$interface-background-colour;
+    background-color: colours.$darkened-background-colour;
 }
 
 .navlink {
     font-size: fonts.$xs-font-size;
     font-weight: fonts.$light-font-weight;
-    letter-spacing: fonts.$normal-letter-spacing;
+    letter-spacing: fonts.$wide-letter-spacing;
     text-decoration: none;
     color: colours.$grey;
     padding: 10px;
     transition: 0.3s;
 
     &:hover,
-    &.active  {
+    &.active {
         color: colours.$white;
     }
 }

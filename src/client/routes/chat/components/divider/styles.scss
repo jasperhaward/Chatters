@@ -1,0 +1,9 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.divider {
+    padding: 10px;
+    text-align: center;
+    color: colours.$primary-colour;
+    font-size: fonts.$sm-font-size;
+}

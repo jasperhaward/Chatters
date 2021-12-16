@@ -1,31 +1,30 @@
 @use "@styles/colours" as colours;
 @use "@styles/fonts" as fonts;
-@use "@styles/styling" as styling;
 
-.app {    
+.app {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: styling.$app-background-colour;
+    background-color: colours.$darkened-background-colour;
 
     .text {
         color: colours.$dark-grey;
         font-size: fonts.$xs-font-size;
         letter-spacing: fonts.$narrow-letter-spacing;
     }
-    
+
     .links {
         display: flex;
         width: min-content;
         margin: 0 auto;
-    
+
         a {
             margin: {
                 left: 6px;
                 right: 6px;
             }
             font-size: fonts.$lg-font-size;
-    
+
             &:hover {
                 color: colours.$grey;
             }

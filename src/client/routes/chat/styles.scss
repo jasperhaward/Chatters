@@ -1,7 +1,51 @@
-@use "@styles/styling" as styling;
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
 
 .page {
+    display: flex;
     height: inherit;
     width: 70%;
-    background-color: styling.$interface-background-colour;
+    backdrop-filter: blur(6px);
+    background-color: colours.$darkened-background-colour;
+
+    .conversationsContainer {
+        width: 40%;
+
+        .controls {
+            padding: {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+        }
+
+        .conversations {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+    }
+
+    .messagesContainer {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        padding: 10px;
+
+        .header {
+            text-align: center;
+            color: colours.$white;
+            font-size: fonts.$xl-font-size;
+            font-weight: fonts.$light-font-weight;
+            letter-spacing: fonts.$wide-letter-spacing;
+        }
+
+        .messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 10px;
+        }
+    }
 }

@@ -6,9 +6,9 @@ export function useHistory(): History {
 
     const { pushState } = history;
 
-    history.pushState = (data, unused, url) => {
-        setPath(url.toString());
-        pushState.apply(window.history, [data, unused, url]);
+    history.pushState = (...args) => {
+        setPath(args[2].toString());
+        pushState.apply(window.history, args);
     };
 
     window.onpopstate = (event) => {

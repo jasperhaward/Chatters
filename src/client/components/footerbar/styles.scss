@@ -1,4 +1,4 @@
-@use "@styles/styling" as styling;
+@use "@styles/colours" as colours;
 @use "@styles/breakpoints" as breakpoints;
 
 .footerbar {
@@ -7,7 +7,7 @@
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     padding: 10px;
-    background-color: styling.$interface-background-colour;
+    background-color: colours.$darkened-background-colour;
 
     .left {
         grid-area: left;

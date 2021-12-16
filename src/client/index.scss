@@ -2,7 +2,7 @@ html,
 body {
     margin: 0;
     height: 100%;
-    font-family: proxima-nova;
+    font-family: "proxima-nova";
 }
 
 body {
@@ -12,4 +12,5 @@ body {
         repeat: no-repeat;
         size: cover;
     }
+    box-sizing: border-box;
 }

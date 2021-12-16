@@ -1,0 +1,62 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.conversation {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    text-align: left;
+    background-color: transparent;
+    border-left: 0px solid colours.$primary-colour;
+    transition: background-color 0.3s ease-in, border-left-width 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        background-color: colours.$darkened-background-colour;
+    }
+
+    &.selected {
+        border-left-width: 5px;
+        background-color: colours.$darkened-background-colour;
+    }
+
+    svg {
+        color: colours.$white;
+        font-size: fonts.$lg-font-size;
+    }
+
+    .details {
+        width: 100%;
+        min-width: 0;
+        margin: {
+            left: 10px;
+            right: 6px;
+        }
+
+        span,
+        div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        span {
+            color: colours.$white;
+            font-size: fonts.$sm-font-size;
+        }
+
+        div {
+            margin-top: 5px;
+            color: colours.$grey;
+            font-size: fonts.$sm-font-size;
+        }
+    }
+
+    .stamp {
+        color: colours.$grey;
+        font-size: fonts.$sm-font-size;
+        white-space: nowrap;
+    }
+}
