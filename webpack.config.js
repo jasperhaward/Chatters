@@ -1,11 +1,11 @@
-module.exports = (env) => ({
-    mode: env.target,
+module.exports = {
+    mode: process.env.NODE_ENV,
     entry: "./src/client/index.tsx",
     output: {
         filename: "[name].bundle.js",
         path: __dirname + "/public/js",
     },
-    devtool: env.target === "development" ? "eval-source-map" : false,
+    devtool: process.env.NODE_ENV === "development" ? "eval-source-map" : false,
     module: {
         rules: [
             {
@@ -39,4 +39,4 @@ module.exports = (env) => ({
             "@styles": __dirname + "/src/client/styles",
         },
     },
-});
+};
