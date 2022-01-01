@@ -1,11 +1,11 @@
 import { JSX, Fragment } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useEffect, useRef } from "preact/hooks";
 import { useForm } from "@hooks";
 import styles from "./styles.scss";
 
 import * as variables from "./variables";
 import * as utils from "./utils";
-import { User, Inputs } from "./types";
+import { User, Inputs, Conversation, Message } from "./types";
 
 import ConversationHandler from "./handler";
 import ConversationComponent from "./components/conversation";
@@ -22,41 +22,122 @@ function ChatPage() {
         message: "",
     });
 
-    // prettier-ignore
     const { 
         selected, 
-        select, 
+        setSelectedId, 
         conversations, 
         dispatch 
     } = ConversationHandler(variables.conversations);
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, [selected])
+
     function onClick(event: JSX.TargetedMouseEvent<HTMLButtonElement>) {
         const { name, id } = event.currentTarget;
-
-        const index = parseInt(id);
 
         switch (name) {
             case "selectConversation":
                 setInput({ message: "" });
-                select(index);
+                setSelectedId(id);
                 break;
             case "clearSearch":
                 setInput({ search: "" });
                 break;
-            case "sendMessage":
-                dispatch({
-                    type: "send",
-                    message: {
-                        content: inputs.message,
-                        createdBy: user.id,
-                    },
-                });
-                setInput({ message: "" });
-                break;
         }
     }
 
-    const { messages } = selected;
+    function onSubmit(event: JSX.TargetedEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        dispatch({
+            type: "send",
+            message: {
+                content: inputs.message,
+                createdBy: user.id,
+            },
+        });
+        setInput({ message: "" });
+    }
+
+    function getConversationHeader(conversation: Conversation) {
+        const { users } = conversation;
+
+        if (users.length === 1) {
+            const { firstName, lastName } = users[0];
+            return firstName + " " + lastName;
+        } else {
+            return users
+                .map((user) => user.firstName)
+                .join(", ");
+        }
+    }
+
+    function getMessageLayout(message: Message, index: number, messages: Message[]) {
+        var previousMessage: Message;
+        var nextMessage: Message;
+
+        var divider: boolean;
+        var margin: boolean;
+        var author: User;
+        var authorIsCurrentUser = message.createdBy === user.id;
+
+        if (index > 0) {
+            previousMessage = messages[index - 1]; 
+        }
+
+        if (index < messages.length - 1) {
+            nextMessage = messages[index + 1]; 
+        }
+
+        if (index === 0 || !isSameDay(message, previousMessage)) {
+            divider = true;
+        }
+
+        if (!authorIsCurrentUser) {
+            if (index === 0 || message.createdBy !== previousMessage.createdBy) {
+                author = users.find((user) => {
+                    return user.id === message.createdBy
+                });
+            }
+        }
+
+        if (index < messages.length - 1) {
+            const messageDate = new Date(message.createdAt);
+            const nextMessageDate = new Date(nextMessage.createdAt);
+             
+            if (!utils.isWithinFiveMins(messageDate, nextMessageDate)) {
+                margin = true;
+            }
+        }
+
+        return (
+            <Fragment key={message}>
+                {divider && (
+                    <Divider date={message.createdAt} />
+                )}
+                <MessageComponent
+                    message={message}
+                    author={author}
+                    margin={margin}
+                    right={authorIsCurrentUser}
+                />
+            </Fragment>
+        )
+    }
+
+    function isSameDay(message1: Message, message2: Message) {
+        const date1 = new Date(message1.createdAt);
+        const date2 = new Date(message2.createdAt);
+
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    }
 
     return (
         <div className={styles.page}>
@@ -70,51 +151,35 @@ function ChatPage() {
                     />
                 </div>
                 <div className={styles.conversations}>
-                    {conversations.map((conversation, index) => (
-                        <Fragment key={conversation}>
-                            {(index === 0 ||
-                                utils.getTimeStamp(conversation) !==
-                                    utils.getTimeStamp(conversations[index - 1])) && (
-                                <Divider date={conversation.messages[0].createdAt} />
-                            )}
-                            <ConversationComponent
-                                index={index}
-                                selected={conversation === selected}
-                                conversation={conversation}
-                                onClick={onClick}
-                            />
-                        </Fragment>
+                    {conversations.map((conversation) => (
+                        <ConversationComponent
+                            key={conversation}
+                            selected={conversation === selected}
+                            header={getConversationHeader(conversation)}
+                            conversation={conversation}
+                            onClick={onClick}
+                        />
                     ))}
                 </div>
             </div>
             <div className={styles.messagesContainer}>
                 <div className={styles.header}>
-                    {selected.users[0].firstName} {selected.users[0].lastName}
+                    {getConversationHeader(selected)}
                 </div>
                 <div className={styles.messages}>
                     {selected.messages
                         .slice()
                         .reverse()
-                        .map((message, index) => (
-                            <Fragment key={message}>
-                                {(index === 0 ||
-                                    utils.getTimeStamp(message.createdAt) !==
-                                        utils.getTimeStamp(messages[index - 1].createdAt)) && (
-                                    <Divider date={message.createdAt} />
-                                )}
-                                <MessageComponent
-                                    users={user.id === message.createdBy ? null : users}
-                                    message={message}
-                                />
-                            </Fragment>
-                        ))}
+                        .map(getMessageLayout)
+                    }
+                    <div ref={scrollRef}></div>
                 </div>
                 <div className={styles.controls}>
                     <MessageBox
                         name="message"
                         value={inputs.message}
                         onInput={onInput}
-                        onClick={onClick}
+                        onSubmit={onSubmit}
                     />
                 </div>
             </div>

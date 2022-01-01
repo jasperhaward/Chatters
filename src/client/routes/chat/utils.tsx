@@ -1,5 +1,3 @@
-import { Conversation } from "./types";
-
 export const isToday = (date: Date) => {
     return date.getTime() > new Date().setHours(0, 0, 0, 0);
 };
@@ -9,55 +7,29 @@ export const isYesterday = (date: Date) => {
     return date.getTime() > new Date().setHours(0, 0, 0, 0) - day;
 };
 
-export const isSameWeek = (date: Date) => {
+export const isThisWeek = (date: Date) => {
     var week = 7 * 24 * 60 * 60 * 1000;
     return date.getTime() > new Date().setHours(0, 0, 0, 0) - week;
 };
 
-export const isSameYear = (date: Date) => {
+export const isThisYear = (date: Date) => {
     var year = 365 * 24 * 60 * 60 * 1000;
     return date.getTime() > new Date().setHours(0, 0, 0, 0) - year;
 };
 
-export const getTimeStamp = (input: string | Conversation, detailed?: boolean) => {
-    if (typeof input !== "string") {
-        input = input.messages[0].createdAt;
-    }
+export const isSameDay = (date1: Date, date2: Date) => {
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+    );
+}
 
-    var date = new Date(input);
+export const isWithinFiveMins = (date1: Date, date2: Date) => {
+    const fiveMins = 5 * 60 * 1000;
 
-    if (isToday(date)) {
-        return detailed
-            ? date.toLocaleString("en-GB", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: true,
-              })
-            : "Today";
-    } else if (isYesterday(date)) {
-        return "Yesterday";
-    } else if (isSameWeek(date)) {
-        return date.toLocaleDateString("en-GB", {
-            weekday: "long",
-        });
-    } else if (isSameYear(date)) {
-        return detailed
-            ? date.toLocaleString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-              })
-            : date.toLocaleString("en-GB", {
-                  month: "long",
-              });
-    } else {
-        return detailed
-            ? date.toLocaleString("en-GB", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-              })
-            : date.toLocaleString("en-GB", {
-                  year: "numeric",
-              });
-    }
-};
+    return (
+        date1.getTime() <= date2.getTime() + fiveMins &&
+        date1.getTime() >= date2.getTime() - fiveMins 
+    );
+}

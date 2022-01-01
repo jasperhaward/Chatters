@@ -2,12 +2,12 @@ import { useState, useReducer } from "preact/hooks";
 import { Action, SendMessageAction, DeleteMessageAction } from "./actions";
 import { Conversation } from "../types";
 
-export default function ConversationHandler(init: Conversation[]) {
+function ConversationHandler(init: Conversation[]) {
     const [conversations, dispatch] = useReducer(reducer, init);
-    const [selected, setSelected] = useState<string>(init[0].id);
+    const [selectedId, setSelectedId] = useState<string>(init[0].id);
 
     const index = conversations.findIndex((conversation) => {
-        return conversation.id === selected;
+        return conversation.id === selectedId;
     });
 
     function reducer(state: Conversation[], action: Action) {
@@ -50,11 +50,6 @@ export default function ConversationHandler(init: Conversation[]) {
         };
     }
 
-    function onSelectConversation(index: number) {
-        const conversation = conversations[index];
-        setSelected(conversation.id);
-    }
-
     function sortByDate(conversations: Conversation[]) {
         return conversations.sort(
             (a, b) =>
@@ -65,8 +60,10 @@ export default function ConversationHandler(init: Conversation[]) {
 
     return {
         selected: conversations[index],
-        select: onSelectConversation,
+        setSelectedId,
         conversations,
         dispatch,
     };
 }
+
+export default ConversationHandler;

@@ -3,29 +3,28 @@ import { IconButton } from "@components";
 import { FormEvent } from "@hooks";
 import styles from "./styles.scss";
 
-export interface MessageBoxProps {
+interface MessageBoxProps {
     name: string;
     value: string;
     onInput: (event: FormEvent) => void;
-    onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
+    onSubmit: JSX.EventHandler<JSX.TargetedEvent<HTMLFormElement>>;
 }
 
-export default function MessageBox({ name, value, onInput, onClick }: MessageBoxProps) {
+function MessageBox({ name, value, onInput, onSubmit }: MessageBoxProps) {
     return (
-        <div className={styles.search}>
+        <form className={styles.search} onSubmit={onSubmit}>
             <input
                 placeholder="Enter message..."
                 name={name}
+                autoComplete="off"
                 value={value}
                 onInput={onInput}
             />
             {value !== "" && (
-                <IconButton
-                    name="sendMessage"
-                    icon={["fas", "paper-plane"]}
-                    onClick={onClick}
-                />
+                <IconButton type="submit" icon={["fas", "paper-plane"]} />
             )}
-        </div>
+        </form>
     );
 }
+
+export default MessageBox;

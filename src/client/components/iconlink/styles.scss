@@ -1,0 +1,16 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+
+.iconLink {
+    margin: {
+        left: 6px;
+        right: 6px;
+    }
+    color: colours.$white;
+    font-size: fonts.$lg-font-size;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: colours.$grey;
+    }
+}

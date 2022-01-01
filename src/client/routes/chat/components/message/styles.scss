@@ -26,7 +26,12 @@ $icon-size: 24px;
         }
     }
 
-    svg {
+    &.margin {
+        margin-bottom: 10px;
+    }
+
+    .icon {
+        min-width: $icon-size;
         font-size: $icon-size;
         color: colours.$white;
     }
@@ -49,9 +54,8 @@ $icon-size: 24px;
         }
     }
 
-    .stamp {
+    time {
         color: colours.$grey;
         font-size: fonts.$sm-font-size;
-        margin-left: 3px;
     }
 }

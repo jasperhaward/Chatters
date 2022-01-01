@@ -5,42 +5,59 @@ import styles from "./styles.scss";
 import * as utils from "../../utils";
 import { Conversation, Message } from "../../types";
 
-export interface ConversationPreviewProps {
-    index: number;
+interface ConversationPreviewProps {
     selected: boolean;
+    header: string;
     conversation: Conversation;
     onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function ConversationPreview({
-    index,
-    selected,
-    conversation,
-    onClick,
-}: ConversationPreviewProps) {
-    const { users, messages } = conversation;
-    const message = messages[0];
+function ConversationPreview({ selected, header, conversation, onClick }: ConversationPreviewProps) {
+    const { id, messages, users } = conversation;
+    const [message] = messages;
 
-    const header =
-        users.length === 1
-            ? users[0].firstName + " " + users[0].lastName
-            : users.map((user) => user.firstName).join(", ");
+    function getTimeStamp(message: Message) {
+        var date = new Date(message.createdAt);
+        var options: Intl.DateTimeFormatOptions;
+
+        if (utils.isToday(date)) {
+            options = {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+            };
+        } else if (utils.isThisWeek(date)) {
+            options = {
+                weekday: "short",
+            };
+        } else {
+            options ={
+                day: "numeric",
+                month: "short",
+            };
+        } 
+
+        return date.toLocaleString("en-GB", options);
+    }
 
     return (
         <button
-            className={
-                selected ? styles.conversation + " " + styles.selected : styles.conversation
+            className={selected 
+                ? styles.conversation + " " + styles.selected 
+                : styles.conversation
             }
-            id={index.toString()}
+            id={id}
             name="selectConversation"
             onClick={onClick}
         >
             <Icon icon={["fas", users.length > 1 ? "users" : "user"]} />
             <div className={styles.details}>
-                <span>{header}</span>
-                <div>{message.content}</div>
+                <header>{header}</header>
+                <span>{message.content}</span>
             </div>
-            <div className={styles.stamp}>{utils.getTimeStamp(message.createdAt, true)}</div>
+            <time>{getTimeStamp(message)}</time>
         </button>
     );
 }
+
+export default ConversationPreview;

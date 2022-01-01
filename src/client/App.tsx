@@ -1,14 +1,13 @@
 import { useHistory } from "@hooks";
 import {
-    Navbar,
-    NavLink,
+    Headerbar,
+    HeaderbarLink,
     Container,
     Footerbar,
     FooterbarContent,
-    Icon,
-    Link,
+    FooterbarText,
+    IconLink,
 } from "@components";
-import styles from "./App.scss";
 
 import HomePage from "./routes/home";
 import ChatPage from "./routes/chat";
@@ -32,42 +31,44 @@ function App() {
     }
 
     return (
-        <div className={styles.app}>
-            <Navbar>
-                <NavLink href="/">HOME</NavLink>
-                <NavLink href="/chat">CHAT</NavLink>
-                <NavLink href="/about">ABOUT</NavLink>
-            </Navbar>
+        <>
+            <Headerbar>
+                <HeaderbarLink href="/">HOME</HeaderbarLink>
+                <HeaderbarLink href="/chat">CHAT</HeaderbarLink>
+                <HeaderbarLink href="/about">ABOUT</HeaderbarLink>
+            </Headerbar>
             <Container>{render()}</Container>
             <Footerbar>
-                <FooterbarContent position="left">
-                    <span className={styles.text}>
-                        Built with Preact, TypeScript & SASS.
-                    </span>
+                <FooterbarContent left>
+                    <FooterbarText>Built with Preact, TypeScript & SASS.</FooterbarText>
                 </FooterbarContent>
-                <FooterbarContent position="middle">
-                    <div className={styles.links}>
-                        <Link external href="https://github.com/jasperhaward">
-                            <Icon icon={["fab", "github"]} />
-                        </Link>
-                        <Link external href="https://www.linkedin.com/in/jhaward">
-                            <Icon icon={["fab", "linkedin"]} />
-                        </Link>
-                        <Link external href="https://steamcommunity.com/id/ric0o">
-                            <Icon icon={["fab", "steam"]} />
-                        </Link>
-                        <Link external href="mailto:jasperhaward@virginmedia.com">
-                            <Icon icon={["fas", "envelope"]} />
-                        </Link>
-                    </div>
+                <FooterbarContent middle>
+                    <IconLink 
+                        external 
+                        href="https://github.com/jasperhaward" 
+                        icon={["fab", "github"]}  
+                    />
+                    <IconLink 
+                        external 
+                        href="https://www.linkedin.com/in/jhaward"
+                        icon={["fab", "linkedin"]}
+                    />
+                    <IconLink 
+                        external 
+                        href="https://steamcommunity.com/id/ric0o" 
+                        icon={["fab", "steam"]}
+                    />
+                    <IconLink 
+                        external 
+                        href="mailto:jasperhaward@virginmedia.com" 
+                        icon={["fas", "envelope"]}
+                    />
                 </FooterbarContent>
-                <FooterbarContent position="right">
-                    <span className={styles.text}>
-                        © 2021 Jasper Haward, All Rights Reserved.
-                    </span>
+                <FooterbarContent right>
+                    <FooterbarText>© 2021 Jasper Haward, All Rights Reserved.</FooterbarText>
                 </FooterbarContent>
             </Footerbar>
-        </div>
+        </>
     );
 }
 

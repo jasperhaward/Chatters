@@ -3,14 +3,14 @@ import { IconButton } from "@components";
 import { FormEvent } from "@hooks";
 import styles from "./styles.scss";
 
-export interface SearchBoxProps {
+interface SearchBoxProps {
     name: string;
     value: string;
     onInput: (event: FormEvent) => void;
     onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function SearchBox({ name, value, onInput, onClick }: SearchBoxProps) {
+function SearchBox({ name, value, onInput, onClick }: SearchBoxProps) {
     const disabled = value === "";
 
     return (
@@ -25,3 +25,5 @@ export default function SearchBox({ name, value, onInput, onClick }: SearchBoxPr
         </div>
     );
 }
+
+export default SearchBox;

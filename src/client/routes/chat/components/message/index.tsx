@@ -3,35 +3,44 @@ import styles from "./styles.scss";
 
 import { User, Message } from "../../types";
 
-export interface MessageProps {
-    users: User[];
+interface MessageProps {
     message: Message;
+    author: User;
+    margin: boolean;
+    right: boolean;
 }
 
-export default function Message({ users, message }: MessageProps) {
-    const user = users?.find((user) => {
-        return user.id === message.createdBy;
-    });
+function Message({ message, author, margin, right }: MessageProps) {
+    var className = styles.message;
+    
+    if (right) className += " " + styles.right; 
+    if (margin) className += " " + styles.margin; 
 
     return (
         <>
-            {user && (
+            {author && (
                 <span className={styles.header}>
-                    {user.firstName} {user.lastName}
+                    {author.firstName} {author.lastName}
                 </span>
             )}
-            <div className={!user ? `${styles.message} ${styles.right}` : styles.message}>
-                {user && <Icon icon={["fas", "user-circle"]} />}
+            <div className={className}>
+                <div className={styles.icon}>
+                    {author && (
+                        <Icon icon={["fas", "user-circle"]} />
+                    )}
+                </div>
                 <div className={styles.content}>
                     <div>{message.content}</div>
                 </div>
-                <div className={styles.stamp}>
+                <time>
                     {new Date(message.createdAt).toLocaleTimeString("en-GB", {
                         hour: "2-digit",
                         minute: "2-digit",
                     })}
-                </div>
+                </time>
             </div>
         </>
     );
 }
+
+export default Message;

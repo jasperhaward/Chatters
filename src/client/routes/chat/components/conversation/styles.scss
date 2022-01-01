@@ -18,8 +18,12 @@
     }
 
     &.selected {
-        border-left-width: 5px;
+        border-left-width: 4px;
         background-color: colours.$darkened-background-colour;
+
+        .details header {
+            color: colours.$primary-colour;
+        }
     }
 
     svg {
@@ -35,26 +39,27 @@
             right: 6px;
         }
 
-        span,
-        div {
+        header,
+        span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        span {
+        header {
             color: colours.$white;
             font-size: fonts.$sm-font-size;
+            transition: color 0.2s ease-in;
         }
 
-        div {
+        span {
             margin-top: 5px;
             color: colours.$grey;
             font-size: fonts.$sm-font-size;
         }
     }
 
-    .stamp {
+    time {
         color: colours.$grey;
         font-size: fonts.$sm-font-size;
         white-space: nowrap;

@@ -2,7 +2,7 @@
 @use "@styles/colours" as colours;
 
 .divider {
-    padding: 10px;
+    margin-bottom: 10px;
     text-align: center;
     color: colours.$primary-colour;
     font-size: fonts.$sm-font-size;
