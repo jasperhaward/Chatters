@@ -19,3 +19,18 @@ body {
     }
     box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+    width: 18px;
+}
+
+::-webkit-scrollbar-thumb {    
+    border: 5px solid transparent;
+    border-radius: 10px;
+    background-color: rgb(0 0 0 / 45%);
+    background-clip: padding-box;
+
+    &:hover {
+        background-color: rgb(0 0 0 / 55%);
+    }
+}
