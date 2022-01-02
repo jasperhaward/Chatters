@@ -10,7 +10,8 @@
     font-size: fonts.$lg-font-size;
     transition: color 0.3s ease;
 
-    &:hover {
+    &:hover,
+    &:focus {
         color: colours.$grey;
     }
 }

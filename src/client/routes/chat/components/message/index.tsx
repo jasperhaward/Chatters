@@ -1,45 +1,35 @@
 import { Icon } from "@components";
 import styles from "./styles.scss";
 
-import { User, Message } from "../../types";
+import { Message } from "../../types";
 
 interface MessageProps {
     message: Message;
-    author: User;
-    margin: boolean;
+    icon: boolean;
     right: boolean;
 }
 
-function Message({ message, author, margin, right }: MessageProps) {
-    var className = styles.message;
-    
-    if (right) className += " " + styles.right; 
-    if (margin) className += " " + styles.margin; 
-
+function Message({ message, icon, right }: MessageProps) {
     return (
-        <>
-            {author && (
-                <span className={styles.header}>
-                    {author.firstName} {author.lastName}
-                </span>
+        <div className={styles.message}>
+            {icon && (
+                <Icon icon={["fas", "user-circle"]} />
             )}
-            <div className={className}>
-                <div className={styles.icon}>
-                    {author && (
-                        <Icon icon={["fas", "user-circle"]} />
-                    )}
-                </div>
-                <div className={styles.content}>
-                    <div>{message.content}</div>
-                </div>
-                <time>
-                    {new Date(message.createdAt).toLocaleTimeString("en-GB", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                    })}
-                </time>
+            <div className={styles.content}>
+                <span className={right 
+                    ? styles.right 
+                    : styles.left}
+                >
+                    {message.content}
+                </span>
             </div>
-        </>
+            <time>
+                {new Date(message.createdAt).toLocaleTimeString("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                })}
+            </time>
+        </div>
     );
 }
 

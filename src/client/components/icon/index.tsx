@@ -5,7 +5,7 @@ import {
     icon as factory,
 } from "@fortawesome/fontawesome-svg-core";
 
-export interface IconProps {
+export type IconProps = {
     icon: [IconPrefix, IconName];
 }
 

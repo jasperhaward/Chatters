@@ -1,28 +1,32 @@
 import type { JSX } from "preact";
-import { IconButton } from "@components";
-import { FormEvent } from "@hooks";
-import styles from "./styles.scss";
+import { Input, IconButton } from "@components";
 
 interface SearchBoxProps {
     name: string;
     value: string;
-    onInput: (event: FormEvent) => void;
-    onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
+    onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
+    onClick: (event: JSX.TargetedEvent<HTMLButtonElement>) => void;
+    onSubmit: (event: JSX.TargetedEvent<HTMLFormElement>) => void;
 }
 
-function SearchBox({ name, value, onInput, onClick }: SearchBoxProps) {
+function SearchBox({ name, value, onInput, onClick, onSubmit }: SearchBoxProps) {
     const disabled = value === "";
 
     return (
-        <div className={styles.search}>
-            <input placeholder="Search" name={name} value={value} onInput={onInput} />
+        <form name="submitSearch" onSubmit={onSubmit}>
+            <Input
+                name={name}
+                placeholder="Search"  
+                value={value} 
+                onInput={onInput} 
+            />
             <IconButton
                 name="clearSearch"
                 icon={["fas", disabled ? "search" : "times"]}
                 disabled={disabled}
                 onClick={onClick}
             />
-        </div>
+        </form>
     );
 }
 

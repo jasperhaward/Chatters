@@ -1,4 +1,4 @@
-export interface History {
+export type History = {
     path: string;
     push: (path: string) => void;
 }

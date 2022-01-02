@@ -1,5 +1,6 @@
 @use "@styles/fonts" as fonts;
 @use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
 
 .page {
     display: flex;
@@ -9,43 +10,60 @@
     backdrop-filter: blur(6px);
     background-color: colours.$darkened-background-colour;
 
-    .conversationsContainer {
-        min-width: 40%;
-
-        .controls {
-            margin: 10px;
-        }
+    section[id="conversations"] {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        max-width: 350px;
+        background-color: rgba(0, 0, 0, 0.15);
 
         .conversations {
             flex-grow: 1;
             overflow-y: auto;
         }
+
+        .controls,
+        button[name="newConversation"] {
+            margin: 10px;
+        }
     }
 
-    .messagesContainer {
+    section[id="messages"] {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         padding: 10px;
 
-        .header {
+        header {
             text-align: center;
             color: colours.$white;
             font-size: fonts.$xl-font-size;
             font-weight: fonts.$light-font-weight;
             letter-spacing: fonts.$wide-letter-spacing;
         }
+    }
 
-        .messages {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding-bottom: 10px;
-            
-            & > div:first-child {
-                margin-top: auto;
+    form[name="submitSearch"],
+    form[name="submitMessage"] {
+        display: flex;
+        align-items: center;
+        border-radius: styling.$border-radius;
+        background-color: colours.$dark-background-colour;
+
+        input {
+            color: colours.$white;
+
+            &:focus::placeholder {
+                color: colours.$light-grey;
             }
+
+            &::placeholder {
+                color: colours.$grey;
+            }
+        }
+
+        button {
+            margin-right: 5px;
         }
     }
 }

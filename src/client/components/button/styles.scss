@@ -1,0 +1,17 @@
+@use "@styles/colours" as colours;
+@import "@styles/styling";
+
+.button {
+    @extend %button-base;
+
+    &.primary {
+        color: colours.$black;
+        background-color: colours.$primary-colour;
+        transition: all 0.2s ease-in;
+
+        &:hover,
+        &:focus {
+            transform: scale(1.03);
+        }
+    }
+}

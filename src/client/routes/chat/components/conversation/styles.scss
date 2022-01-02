@@ -1,25 +1,26 @@
+@use "@styles/styling" as styling;
 @use "@styles/fonts" as fonts;
 @use "@styles/colours" as colours;
 
 .conversation {
+    @extend %button-base;
     display: flex;
     align-items: center;
     width: 100%;
     padding: 10px;
-    border: none;
     text-align: left;
-    background-color: transparent;
+    border-radius: 0;
     border-left: 0px solid colours.$primary-colour;
     transition: background-color 0.3s ease-in, border-left-width 0.3s ease;
 
-    &:hover {
-        cursor: pointer;
-        background-color: colours.$darkened-background-colour;
+    &:hover,
+    &:focus,
+    &.selected {
+        background-color: rgba(0, 0, 0, 0.2);
     }
 
     &.selected {
         border-left-width: 4px;
-        background-color: colours.$darkened-background-colour;
 
         .details header {
             color: colours.$primary-colour;
@@ -48,19 +49,20 @@
 
         header {
             color: colours.$white;
-            font-size: fonts.$sm-font-size;
+            font-size: fonts.$md-font-size;
             transition: color 0.2s ease-in;
         }
 
         span {
+            display: block;
             margin-top: 5px;
-            color: colours.$grey;
+            color: colours.$light-grey;
             font-size: fonts.$sm-font-size;
         }
     }
 
     time {
-        color: colours.$grey;
+        color: colours.$light-grey;
         font-size: fonts.$sm-font-size;
         white-space: nowrap;
     }

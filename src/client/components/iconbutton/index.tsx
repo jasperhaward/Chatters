@@ -1,16 +1,16 @@
-import type { JSX } from "preact";
-import { Icon, IconProps } from "@components";
+import { Icon, IconProps, ButtonProps } from "@components";
 import styles from "./styles.scss";
 
-export interface IconButtonProps extends IconProps {
-    type?: string;
-    id?: string;
-    name?: string;
-    disabled?: boolean;
-    onClick?: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
-}
+export type IconButtonProps = Omit<ButtonProps, "primary" | "children"> & IconProps;
 
-export function IconButton({ type, id, name, disabled, icon, onClick }: IconButtonProps) {
+export function IconButton({ 
+    type, 
+    id, 
+    name, 
+    disabled, 
+    icon, 
+    onClick 
+}: IconButtonProps) {
     return (
         <button
             className={styles.iconButton}

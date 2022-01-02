@@ -1,1 +1,35 @@
-$border-radius: 10px;
+@use "@styles/fonts" as fonts;
+
+$padding: 9px 12px;
+$border-radius: 5px;
+$transition: color 0.2s ease-in;
+
+%button-base {
+    padding: $padding;
+    border: none;
+    outline: none;
+    border-radius: $border-radius;
+    background-color: transparent;
+    font-size: fonts.$sm-font-size;
+    transition: $transition;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+}
+
+%input-base {
+    width: 100%;
+    padding: $padding;
+    border: none;
+    outline: none;
+    border-radius: $border-radius;
+    background-color: transparent;
+    font-size: fonts.$sm-font-size;
+    transition: $transition;
+}

@@ -1,4 +1,4 @@
-import { User, Conversation, Message } from "./types";
+import { User, Conversation } from "./types";
 
 export const user: User = {
     id: "U1",
@@ -207,7 +207,8 @@ export const conversations: Conversation[] = [
             {
                 id: "M3",
                 conversationId: "C2",
-                content: "How are you?",
+                content:
+                    "This is a another really long mesasage....reallllyyyy longggg messsage for testing shit",
                 createdAt: new Date(2021, 11, 6, 16, 56).toString(),
                 createdBy: user.id,
             },
@@ -221,10 +222,9 @@ export const conversations: Conversation[] = [
             {
                 id: "M4",
                 conversationId: "C2",
-                content:
-                    "This is a another really long mesasage....reallllyyyy longggg messsage for testing shit",
+                content: "How are you?",
                 createdAt: new Date(2021, 11, 6, 15, 12).toString(),
-                createdBy: recipient2.id,
+                createdBy: user.id,
             },
         ],
     },

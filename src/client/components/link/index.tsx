@@ -1,7 +1,7 @@
 import type { VNode } from "preact";
 import styles from "./styles.scss";
 
-export interface LinkProps {
+export type LinkProps = {
     href: string;
     className?: string;
     activeClassName?: string;
@@ -30,13 +30,13 @@ export function Link({
 
     return (
         <a
-            href={href}
             className={
                 location.pathname === href
                     ? className + " " + activeClassName
                     : className
             }
             {...props}
+            href={href}
             onClick={onClick}
         >
             {children}

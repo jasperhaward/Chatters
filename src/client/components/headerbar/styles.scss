@@ -19,6 +19,7 @@
     transition: color 0.3s ease;
 
     &:hover,
+    &:focus,
     &.active {
         color: colours.$white;
     }

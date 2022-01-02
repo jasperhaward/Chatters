@@ -2,18 +2,15 @@
 @use "@styles/colours" as colours;
 
 .iconButton {
+    @extend %button-base;
     padding: 5px;
-    border: none;
     color: colours.$white;
-    background-color: transparent;
-    transition: color 0.2s ease-in;
 
     &:hover {
-        cursor: pointer;
         color: colours.$grey;
     }
 
     &:disabled {
-        pointer-events: none;
+        opacity: 1;
     }
 }

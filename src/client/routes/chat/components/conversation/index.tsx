@@ -3,20 +3,21 @@ import { Icon } from "@components";
 import styles from "./styles.scss";
 
 import * as utils from "../../utils";
-import { Conversation, Message } from "../../types";
+import { Conversation } from "../../types";
 
-interface ConversationPreviewProps {
-    selected: boolean;
+type ConversationPreviewProps = {
+    name: string;
+    isSelected: boolean;
     header: string;
     conversation: Conversation;
     onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
 }
 
-function ConversationPreview({ selected, header, conversation, onClick }: ConversationPreviewProps) {
+function ConversationPreview({ name, isSelected, header, conversation, onClick }: ConversationPreviewProps) {
     const { id, messages, users } = conversation;
     const [message] = messages;
 
-    function getTimeStamp(message: Message) {
+    function getTimeStamp() {
         var date = new Date(message.createdAt);
         var options: Intl.DateTimeFormatOptions;
 
@@ -31,23 +32,23 @@ function ConversationPreview({ selected, header, conversation, onClick }: Conver
                 weekday: "short",
             };
         } else {
-            options ={
+            options = {
                 day: "numeric",
                 month: "short",
             };
-        } 
+        }
 
         return date.toLocaleString("en-GB", options);
     }
 
     return (
         <button
-            className={selected 
+            className={isSelected 
                 ? styles.conversation + " " + styles.selected 
                 : styles.conversation
             }
             id={id}
-            name="selectConversation"
+            name={name}
             onClick={onClick}
         >
             <Icon icon={["fas", users.length > 1 ? "users" : "user"]} />
@@ -55,7 +56,7 @@ function ConversationPreview({ selected, header, conversation, onClick }: Conver
                 <header>{header}</header>
                 <span>{message.content}</span>
             </div>
-            <time>{getTimeStamp(message)}</time>
+            <time>{getTimeStamp()}</time>
         </button>
     );
 }

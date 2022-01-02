@@ -1,21 +1,19 @@
 import type { JSX } from "preact";
-import { IconButton } from "@components";
-import { FormEvent } from "@hooks";
-import styles from "./styles.scss";
+import { Input, IconButton } from "@components";
 
-interface MessageBoxProps {
+type MessageBoxProps = {
     name: string;
     value: string;
-    onInput: (event: FormEvent) => void;
-    onSubmit: JSX.EventHandler<JSX.TargetedEvent<HTMLFormElement>>;
+    onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
+    onSubmit: (event: JSX.TargetedEvent<HTMLFormElement>) => void;
 }
 
 function MessageBox({ name, value, onInput, onSubmit }: MessageBoxProps) {
     return (
-        <form className={styles.search} onSubmit={onSubmit}>
-            <input
-                placeholder="Enter message..."
+        <form name="submitMessage" onSubmit={onSubmit}>
+            <Input
                 name={name}
+                placeholder="Type a message..."
                 autoComplete="off"
                 value={value}
                 onInput={onInput}

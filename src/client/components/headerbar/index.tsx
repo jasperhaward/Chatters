@@ -2,7 +2,7 @@ import type { VNode } from "preact";
 import { Link, LinkProps } from "@components";
 import styles from "./styles.scss";
 
-export interface HeaderbarProps {
+export type HeaderbarProps = {
     children: VNode | VNode[];
 }
 

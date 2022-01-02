@@ -1,7 +1,7 @@
 import type { VNode } from "preact";
 import styles from "./styles.scss";
 
-export interface FooterbarProps {
+export type FooterbarProps = {
     children: VNode | VNode[];
 }
 
@@ -9,7 +9,7 @@ export function Footerbar({ children }: FooterbarProps) {
     return <footer className={styles.footerbar}>{children}</footer>;
 }
 
-export interface FooterbarContentProps {
+export type FooterbarContentProps = {
     left?: boolean;
     middle?: boolean;
     right?: boolean;
@@ -26,7 +26,7 @@ export function FooterbarContent({ left, middle, right, children }: FooterbarCon
     return <div className={className}>{children}</div>;
 }
 
-export interface FooterbarTextProps {
+export type FooterbarTextProps = {
     children: string;
 }
 

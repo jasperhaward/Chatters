@@ -1,11 +1,11 @@
 import { JSX } from "preact";
 
 // prettier-ignore
-export interface FormEvent extends JSX.TargetedEvent<HTMLInputElement | HTMLSelectElement, InputEvent> {
+export type FormEvent = JSX.TargetedEvent<HTMLInputElement | HTMLSelectElement, InputEvent> & {
     currentTarget: HTMLInputElement;
 }
 
-export interface FormInputs {
+export type FormInputs = {
     [key: string]: string | boolean;
 }
 

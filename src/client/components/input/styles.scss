@@ -1,0 +1,6 @@
+@use "@styles/colours" as colours;
+@import "@styles/styling";
+
+.input {
+    @extend %input-base;
+}
