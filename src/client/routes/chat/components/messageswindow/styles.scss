@@ -27,10 +27,7 @@ $spacer-height: 10px;
     }
 
     .author {
-        margin: {
-            left: message.$icon-size + 10px;
-            bottom: 2px;
-        }
+        margin-left: message.$icon-size + 8px;
         color: colours.$light-grey;
         font-size: fonts.$sm-font-size;
     }
