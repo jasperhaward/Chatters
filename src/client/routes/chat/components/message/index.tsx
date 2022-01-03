@@ -16,12 +16,12 @@ function Message({ message, icon, right }: MessageProps) {
                 <Icon icon={["fas", "user-circle"]} />
             )}
             <div className={styles.content}>
-                <span className={right 
+                <div className={right 
                     ? styles.right 
                     : styles.left}
                 >
                     {message.content}
-                </span>
+                </div>
             </div>
             <time>
                 {new Date(message.createdAt).toLocaleTimeString("en-GB", {
