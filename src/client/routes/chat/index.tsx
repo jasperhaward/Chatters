@@ -113,7 +113,7 @@ function ChatPage() {
                         name="search"
                         value={inputs.search}
                         onInput={onInput}
-                        onClear={onClearSearchClick}
+                        onClick={onClearSearchClick}
                         onSubmit={onSearchSubmit}
                     />
                     <IconButton
@@ -130,7 +130,7 @@ function ChatPage() {
                     {view === "conversations"
                         ? conversations.map((conversation) => (
                               <ConversationComponent
-                                  selected={conversation === selected}
+                                  selected={conversation.id === selected.id}
                                   header={getConversationHeader(conversation)}
                                   conversation={conversation}
                                   onClick={onConversationClick}
@@ -139,7 +139,7 @@ function ChatPage() {
                         : contacts.map((contact, index, contacts) => (
                               <>
                                   {showContactsDivider(index, contacts) && (
-                                      <Divider letter={contact.firstName[0]} />
+                                      <Divider>{contact.firstName[0]}</Divider>
                                   )}
                                   <Contact
                                       key={user}

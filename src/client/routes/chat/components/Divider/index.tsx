@@ -1,13 +1,13 @@
 import styles from "./styles.scss";
 
 interface DividerProps {
-    letter: string;
+    children: string;
 }
 
-function Divider({ letter }: DividerProps) {
+function Divider({ children }: DividerProps) {
     return (
         <div className={styles.divider}>
-            <span>{letter}</span>
+            <span>{children}</span>
             <hr />
         </div>
     );

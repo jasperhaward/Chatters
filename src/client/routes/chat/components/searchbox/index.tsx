@@ -5,7 +5,7 @@ interface SearchBoxProps {
     name: string;
     value: string;
     onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
-    onClear: () => void;
+    onClick: () => void;
     onSubmit: () => void;
 }
 
@@ -13,7 +13,7 @@ function SearchBox({
     name,
     value,
     onInput,
-    onClear,
+    onClick,
     onSubmit,
 }: SearchBoxProps) {
     const disabled = value === "";
@@ -34,7 +34,7 @@ function SearchBox({
             <IconButton
                 icon={["fas", disabled ? "search" : "times"]}
                 disabled={disabled}
-                onClick={onClear}
+                onClick={onClick}
             />
         </form>
     );
