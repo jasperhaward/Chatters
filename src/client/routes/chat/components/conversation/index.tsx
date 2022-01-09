@@ -4,19 +4,19 @@ import * as utils from "../../utils";
 import { Conversation, User } from "../../types";
 import Avatar from "../Avatar";
 
-type ConversationPreviewProps = {
+type ConversationComponentProps = {
     header: string;
     selected: boolean;
     conversation: Conversation;
     onClick: (id: string) => void;
 };
 
-function ConversationPreview({
+function ConversationComponent({
     header,
     selected,
     conversation,
     onClick,
-}: ConversationPreviewProps) {
+}: ConversationComponentProps) {
     const { id, messages, recipients, avatar } = conversation;
     const [message] = messages;
 
@@ -78,4 +78,4 @@ function ConversationPreview({
     );
 }
 
-export default ConversationPreview;
+export default ConversationComponent;

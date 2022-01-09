@@ -3,13 +3,13 @@ import styles from "./styles.scss";
 import { Message, User } from "../../types";
 import Avatar from "../Avatar";
 
-interface MessageProps {
+interface MessageComponentProps {
     message: Message;
     author: User;
     right: boolean;
 }
 
-function Message({ message, author, right }: MessageProps) {
+function MessageComponent({ message, author, right }: MessageComponentProps) {
     return (
         <article className={styles.message}>
             {author && (
@@ -34,4 +34,4 @@ function Message({ message, author, right }: MessageProps) {
     );
 }
 
-export default Message;
+export default MessageComponent;
