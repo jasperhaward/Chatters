@@ -2,7 +2,7 @@
 @use "@styles/colours" as colours;
 @use "@styles/styling" as styling;
 
-@use "../message/styles" as message;
+@use "../avatar/styles" as avatar;
 
 $spacer-height: 10px;
 
@@ -12,22 +12,22 @@ $spacer-height: 10px;
     flex-direction: column;
     overflow-y: auto;
     padding-bottom: $spacer-height;
-    
-    .timestamp {
+
+    .datestamp {
         margin-bottom: 10px;
         text-align: center;
         color: colours.$primary-colour;
-        font-size: fonts.$sm-font-size; 
-        
+        font-size: fonts.$sm-font-size;
+
         &:first-child {
-            // when first child, it should push itself and 
+            // when first child, it should push itself and
             // siblings to the bottom of the window
             margin-top: auto;
         }
     }
 
     .author {
-        margin-left: message.$icon-size + 8px;
+        margin-left: avatar.$sm-avatar-size + 8px;
         color: colours.$light-grey;
         font-size: fonts.$sm-font-size;
     }

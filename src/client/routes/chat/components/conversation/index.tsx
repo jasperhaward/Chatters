@@ -1,24 +1,29 @@
-import type { JSX } from "preact";
-import { Icon } from "@components";
 import styles from "./styles.scss";
 
 import * as utils from "../../utils";
-import { Conversation } from "../../types";
+import { Conversation, User } from "../../types";
+import Avatar from "../Avatar";
 
 type ConversationPreviewProps = {
-    name: string;
-    isSelected: boolean;
     header: string;
+    selected: boolean;
     conversation: Conversation;
-    onClick: (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => void;
-}
+    onClick: (id: string) => void;
+};
 
-function ConversationPreview({ name, isSelected, header, conversation, onClick }: ConversationPreviewProps) {
-    const { id, messages, users } = conversation;
+function ConversationPreview({
+    header,
+    selected,
+    conversation,
+    onClick,
+}: ConversationPreviewProps) {
+    const { id, messages, recipients, avatar } = conversation;
     const [message] = messages;
 
+    const _onClick = () => onClick(id);
+
     function getTimeStamp() {
-        var date = new Date(message.createdAt);
+        const date = new Date(message.createdAt);
         var options: Intl.DateTimeFormatOptions;
 
         if (utils.isToday(date)) {
@@ -41,21 +46,33 @@ function ConversationPreview({ name, isSelected, header, conversation, onClick }
         return date.toLocaleString("en-GB", options);
     }
 
+    function initials(recipient: User) {
+        const { firstName, lastName } = recipient;
+        return firstName[0] + " " + lastName[0];
+    }
+
     return (
         <button
-            className={isSelected 
-                ? styles.conversation + " " + styles.selected 
-                : styles.conversation
+            className={
+                selected
+                    ? styles.conversation + " " + styles.selected
+                    : styles.conversation
             }
-            id={id}
-            name={name}
-            onClick={onClick}
+            onClick={_onClick}
         >
-            <Icon icon={["fas", users.length > 1 ? "users" : "user"]} />
-            <div className={styles.details}>
+            {recipients.length === 1 ? (
+                <Avatar
+                    md
+                    src={recipients[0].avatar}
+                    content={initials(recipients[0])}
+                />
+            ) : (
+                <Avatar md src={avatar} content={recipients.length} />
+            )}
+            <section>
                 <header>{header}</header>
-                <span>{message.content}</span>
-            </div>
+                <div>{message.content}</div>
+            </section>
             <time>{getTimeStamp()}</time>
         </button>
     );

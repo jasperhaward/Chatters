@@ -2,29 +2,23 @@
 @use "@styles/colours" as colours;
 @use "@styles/styling" as styling;
 
-$icon-size: 24px;
+@use "../avatar/styles" as avatar;
 
 .message {
     display: flex;
     align-items: center;
 
-    svg {
-        min-width: $icon-size;
-        font-size: $icon-size;
-        color: colours.$white;
-    }
-
-    svg + .content {
+    div + section {
         margin-left: 0;
     }
 
-    .content {
+    section {
         width: 100%;
         padding: {
             left: 5px;
             right: 5px;
         }
-        margin-left: $icon-size;
+        margin-left: avatar.$sm-avatar-size;
 
         div {
             width: fit-content;
@@ -36,7 +30,7 @@ $icon-size: 24px;
                 color: colours.$white;
                 background-color: colours.$dark-background-colour;
             }
-            
+
             &.right {
                 float: right;
                 margin-left: 20px;

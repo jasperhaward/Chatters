@@ -1,0 +1,46 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+.contact {
+    @extend %button-base;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px;
+    border-radius: 0;
+
+    &:hover,
+    &:focus {
+        background-color: rgba(0, 0, 0, 0.2);
+
+        span {
+            color: colours.$primary-colour;
+        }
+    }
+
+    $image-size: 35px;
+
+    img {
+        height: $image-size;
+        width: $image-size;
+        border-radius: $image-size;
+        image-rendering: -webkit-optimize-contrast;
+    }
+
+    .indicator {
+        min-width: $image-size;
+        height: $image-size;
+        line-height: $image-size;
+        border-radius: $image-size;
+        color: colours.$white;
+        background-color: colours.$darkened-background-colour;
+    }
+
+    span {
+        margin-left: 10px;
+        color: colours.$white;
+        font-size: fonts.$md-font-size;
+        transition: color 0.3s ease;
+    }
+}

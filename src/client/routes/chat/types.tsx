@@ -9,6 +9,7 @@ export interface User {
     id: string;
     firstName: string;
     lastName: string;
+    avatar?: string;
 }
 
 export interface Message {
@@ -21,6 +22,7 @@ export interface Message {
 
 export interface Conversation {
     id: string;
-    users: User[];
+    recipients: User[];
     messages: Message[];
+    avatar?: string;
 }

@@ -5,26 +5,36 @@ interface SearchBoxProps {
     name: string;
     value: string;
     onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
-    onClick: (event: JSX.TargetedEvent<HTMLButtonElement>) => void;
-    onSubmit: (event: JSX.TargetedEvent<HTMLFormElement>) => void;
+    onClear: () => void;
+    onSubmit: () => void;
 }
 
-function SearchBox({ name, value, onInput, onClick, onSubmit }: SearchBoxProps) {
+function SearchBox({
+    name,
+    value,
+    onInput,
+    onClear,
+    onSubmit,
+}: SearchBoxProps) {
     const disabled = value === "";
 
+    function _onSubmit(event: JSX.TargetedEvent<HTMLFormElement>) {
+        event.preventDefault();
+        onSubmit();
+    }
+
     return (
-        <form name="submitSearch" onSubmit={onSubmit}>
+        <form onSubmit={_onSubmit}>
             <Input
+                placeholder="Search"
                 name={name}
-                placeholder="Search"  
-                value={value} 
-                onInput={onInput} 
+                value={value}
+                onInput={onInput}
             />
             <IconButton
-                name="clearSearch"
                 icon={["fas", disabled ? "search" : "times"]}
                 disabled={disabled}
-                onClick={onClick}
+                onClick={onClear}
             />
         </form>
     );

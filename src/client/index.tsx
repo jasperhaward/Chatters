@@ -15,8 +15,14 @@ import {
     faTimes,
     faPaperPlane,
     faUsers,
+    faUserFriends,
+    faListUl,
 } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedin, faGithub, faSteam } from "@fortawesome/free-brands-svg-icons";
+import {
+    faLinkedin,
+    faGithub,
+    faSteam,
+} from "@fortawesome/free-brands-svg-icons";
 
 library.add({
     faEnvelope,
@@ -29,6 +35,8 @@ library.add({
     faTimes,
     faPaperPlane,
     faUsers,
+    faUserFriends,
+    faListUl,
 });
 
 render(<App />, document.body);

@@ -1,35 +1,36 @@
-import { Icon } from "@components";
 import styles from "./styles.scss";
 
-import { Message } from "../../types";
+import { Message, User } from "../../types";
+import Avatar from "../Avatar";
 
 interface MessageProps {
     message: Message;
-    icon: boolean;
+    author: User;
     right: boolean;
 }
 
-function Message({ message, icon, right }: MessageProps) {
+function Message({ message, author, right }: MessageProps) {
     return (
-        <div className={styles.message}>
-            {icon && (
-                <Icon icon={["fas", "user-circle"]} />
+        <article className={styles.message}>
+            {author && (
+                <Avatar
+                    sm
+                    src={author.avatar}
+                    content={author.firstName[0] + " " + author.lastName[0]}
+                />
             )}
-            <div className={styles.content}>
-                <div className={right 
-                    ? styles.right 
-                    : styles.left}
-                >
+            <section>
+                <div className={right ? styles.right : styles.left}>
                     {message.content}
                 </div>
-            </div>
+            </section>
             <time>
                 {new Date(message.createdAt).toLocaleTimeString("en-GB", {
                     hour: "2-digit",
                     minute: "2-digit",
                 })}
             </time>
-        </div>
+        </article>
     );
 }
 

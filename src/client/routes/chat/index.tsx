@@ -3,118 +3,177 @@ import { useState } from "preact/hooks";
 import styles from "./styles.scss";
 
 import { useForm } from "@hooks";
-import { Button } from "@components";
+import { Button, IconButton } from "@components";
 
 import * as variables from "./variables";
 import { User, Inputs, Conversation } from "./types";
 
 import ConversationHandler from "./handler";
-import ConversationComponent from "./components/conversation";
-import SearchBox from "./components/searchbox";
-import MessagesWindow from "./components/messageswindow";
-import MessageBox from "./components/messagebox";
+import Contact from "./components/Contact";
+import Divider from "./components/Divider";
+import ConversationComponent from "./components/Conversation";
+import SearchBox from "./components/SearchBox";
+import MessageBox from "./components/MessageBox";
+import MessagesWindow from "./components/MessagesWindow";
 
 function ChatPage() {
     const [user, setUser] = useState<User>(variables.user);
-    const [users, setUsers] = useState<User[]>(variables.users);
+    const [contacts, setContacts] = useState<User[]>(variables.contacts);
     const [inputs, onInput, setInput] = useForm<Inputs>({
         search: "",
         message: "",
     });
-
-    const { selected, setSelectedId, conversations, dispatch } = ConversationHandler(
-        variables.conversations
+    const [view, setView] = useState<"conversations" | "contacts">(
+        "conversations"
     );
 
-    function onClick(event: JSX.TargetedMouseEvent<HTMLButtonElement>) {
-        const { name, id } = event.currentTarget;
+    const { selected, setSelectedId, conversations, dispatch } =
+        ConversationHandler(variables.conversations);
 
-        switch (name) {
-            case "selectConversation":
-                setInput({ message: "" });
-                setSelectedId(id);
-                break;
-            case "clearSearch":
-                setInput({ search: "" });
-                break;
+    function onConversationClick(id: string) {
+        setInput({ message: "" });
+        setSelectedId(id);
+    }
+
+    function onCreateConversation() {}
+
+    function onContactClick(user: User) {
+        // Find {conversation} where the ONLY recipient is {user}
+        const conversation = conversations.find(({ recipients }) => {
+            return recipients.length === 1 && recipients[0] == user;
+        });
+
+        if (conversation) {
+            setSelectedId(conversation.id);
+            onToggleView();
+        } else {
+            onCreateConversation();
         }
     }
 
-    function onSubmit(event: JSX.TargetedEvent<HTMLFormElement>) {
-        event.preventDefault();
+    function onCreateContact() {}
 
-        const { name } = event.currentTarget;
-        
-        switch (name) {
-            case "submitSearch":
-                break;
-            case "submitMessage":
-                dispatch({
-                    type: "send",
-                    message: {
-                        content: inputs.message,
-                        createdBy: user.id,
-                    },
-                });
-                setInput({ message: "" });
-                break;
+    function onToggleView() {
+        if (inputs.search !== "") {
+            setInput({ search: "" });
         }
+
+        setView(view === "contacts" ? "conversations" : "contacts");
+    }
+
+    function onClearSearch() {
+        setInput({ search: "" });
+    }
+
+    function onSubmitSearch() {
+        console.log("Submit search");
+    }
+
+    function onSubmitMessage() {
+        dispatch({
+            type: "send",
+            message: {
+                content: inputs.message,
+                createdBy: user.id,
+            },
+        });
+        setInput({ message: "" });
     }
 
     function getConversationHeader(conversation: Conversation) {
-        const { users } = conversation;
+        const { recipients } = conversation;
 
-        if (users.length === 1) {
-            const { firstName, lastName } = users[0];
+        if (recipients.length === 1) {
+            const { firstName, lastName } = recipients[0];
             return firstName + " " + lastName;
         } else {
-            return users.map((user) => user.firstName).join(", ");
+            return recipients
+                .map((recipient) => recipient.firstName)
+                .join(", ");
         }
+    }
+
+    function showContactsDivider(index: number, contacts: User[]) {
+        const currContact = contacts[index];
+        const prevContact = index > 0 && contacts[index - 1];
+
+        // Show divider when:
+        // -The current contact is the first contact
+        // -The first letter of the current and previous contacts names differ
+        return (
+            !prevContact ||
+            prevContact.firstName[0] !== currContact.firstName[0]
+        );
     }
 
     return (
         <div className={styles.page}>
-            <section id="conversations">
+            <section id="navigation">
+                <header>Recents</header>
                 <div className={styles.controls}>
                     <SearchBox
                         name="search"
                         value={inputs.search}
                         onInput={onInput}
-                        onClick={onClick}
-                        onSubmit={onSubmit}
+                        onClear={onClearSearch}
+                        onSubmit={onSubmitSearch}
+                    />
+                    <IconButton
+                        icon={[
+                            "fas",
+                            view === "conversations"
+                                ? "user-friends"
+                                : "list-ul",
+                        ]}
+                        onClick={onToggleView}
                     />
                 </div>
-                <div className={styles.conversations}>
-                    {conversations.map((conversation) => (
-                        <ConversationComponent
-                            key={conversation}
-                            name="selectConversation"
-                            isSelected={conversation === selected}
-                            header={getConversationHeader(conversation)}
-                            conversation={conversation}
-                            onClick={onClick}
-                        />
-                    ))}
+                <div className={styles.container}>
+                    {view === "conversations"
+                        ? conversations.map((conversation) => (
+                              <ConversationComponent
+                                  selected={conversation === selected}
+                                  header={getConversationHeader(conversation)}
+                                  conversation={conversation}
+                                  onClick={onConversationClick}
+                              />
+                          ))
+                        : contacts.map((contact, index, contacts) => (
+                              <>
+                                  {showContactsDivider(index, contacts) && (
+                                      <Divider letter={contact.firstName[0]} />
+                                  )}
+                                  <Contact
+                                      key={user}
+                                      contact={contact}
+                                      onClick={onContactClick}
+                                  />
+                              </>
+                          ))}
                 </div>
-                <Button name="newConversation" primary onClick={onClick}>
-                    New Conversation
-                </Button>
+                {view === "conversations" ? (
+                    <Button primary onClick={onCreateConversation}>
+                        Create conversation
+                    </Button>
+                ) : (
+                    <Button primary onClick={onCreateContact}>
+                        Create contact
+                    </Button>
+                )}
             </section>
             <section id="messages">
-                <header>
-                    {getConversationHeader(selected)}
-                </header>
-                <MessagesWindow 
+                <header>{getConversationHeader(selected)}</header>
+                <MessagesWindow
                     messages={selected.messages.slice().reverse()}
                     user={user}
-                    users={users}
+                    contacts={contacts}
                 />
                 <div className={styles.controls}>
                     <MessageBox
                         name="message"
                         value={inputs.message}
                         onInput={onInput}
-                        onSubmit={onSubmit}
+                        onSubmit={onSubmitMessage}
                     />
                 </div>
             </section>

@@ -10,20 +10,48 @@
     backdrop-filter: blur(6px);
     background-color: colours.$darkened-background-colour;
 
-    section[id="conversations"] {
+    section[id="navigation"] {
         display: flex;
         flex-direction: column;
         width: 40%;
         max-width: 350px;
         background-color: rgba(0, 0, 0, 0.15);
 
-        .conversations {
+        & > header {
+            margin: 10px;
+            color: colours.$primary-colour;
+            font-weight: fonts.$light-font-weight;
+            letter-spacing: 5px;
+            font-size: fonts.$xl-font-size;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            margin: 0 10px 10px 10px;
+
+            form {
+                flex-grow: 1;
+            }
+
+            & > button {
+                width: 24px;
+                margin-left: 6px;
+                padding: 2px 0;
+                color: colours.$primary-colour;
+
+                svg {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .container {
             flex-grow: 1;
             overflow-y: auto;
         }
 
-        .controls,
-        button[name="newConversation"] {
+        & > button {
             margin: 10px;
         }
     }
@@ -35,17 +63,16 @@
         flex-direction: column;
         padding: 10px;
 
-        header {
+        & > header {
             text-align: center;
             color: colours.$white;
-            font-size: fonts.$xl-font-size;
             font-weight: fonts.$light-font-weight;
-            letter-spacing: fonts.$wide-letter-spacing;
+            letter-spacing: 5px;
+            font-size: fonts.$xl-font-size;
         }
     }
 
-    form[name="submitSearch"],
-    form[name="submitMessage"] {
+    form {
         display: flex;
         align-items: center;
         border-radius: styling.$border-radius;

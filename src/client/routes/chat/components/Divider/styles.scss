@@ -1,0 +1,23 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+.divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    span {
+        margin: {
+            left: 8px;
+            right: 8px;
+        }
+        color: colours.$primary-colour;
+        font-size: fonts.$md-font-size;
+    }
+
+    hr {
+        flex-grow: 1;
+        border-color: colours.$primary-colour;
+    }
+}

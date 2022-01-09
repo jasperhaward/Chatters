@@ -5,20 +5,22 @@ export type InputProps = {
     type?: "text" | "email" | "password" | "number";
     id?: string;
     name?: string;
+    title?: string;
     placeholder?: string;
     autoComplete?: "on" | "off";
     disabled?: boolean;
     value: string;
     onInput?: (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>) => void;
-}
+};
 
-export function Input({ 
-    type, 
-    id, 
-    name, 
+export function Input({
+    type,
+    id,
+    name,
+    title,
     placeholder,
     autoComplete,
-    disabled, 
+    disabled,
     value,
     onInput,
 }: InputProps) {
@@ -28,6 +30,7 @@ export function Input({
             type={type}
             id={id}
             name={name}
+            title={title}
             placeholder={placeholder}
             autoComplete={autoComplete}
             disabled={disabled}

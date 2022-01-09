@@ -8,10 +8,8 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    text-align: left;
     border-radius: 0;
     border-left: 0px solid colours.$primary-colour;
-    transition: background-color 0.3s ease-in, border-left-width 0.3s ease;
 
     &:hover,
     &:focus,
@@ -22,26 +20,22 @@
     &.selected {
         border-left-width: 4px;
 
-        .details header {
+        section header {
             color: colours.$primary-colour;
         }
     }
 
-    svg {
-        color: colours.$white;
-        font-size: fonts.$lg-font-size;
-    }
-
-    .details {
+    section {
         width: 100%;
         min-width: 0;
         margin: {
             left: 10px;
             right: 6px;
         }
+        text-align: left;
 
         header,
-        span {
+        div {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -53,8 +47,7 @@
             transition: color 0.2s ease-in;
         }
 
-        span {
-            display: block;
+        div {
             margin-top: 5px;
             color: colours.$light-grey;
             font-size: fonts.$sm-font-size;

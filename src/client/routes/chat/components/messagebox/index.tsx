@@ -5,16 +5,21 @@ type MessageBoxProps = {
     name: string;
     value: string;
     onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
-    onSubmit: (event: JSX.TargetedEvent<HTMLFormElement>) => void;
-}
+    onSubmit: () => void;
+};
 
 function MessageBox({ name, value, onInput, onSubmit }: MessageBoxProps) {
+    function _onSubmit(event: JSX.TargetedEvent<HTMLFormElement>) {
+        event.preventDefault();
+        onSubmit();
+    }
+
     return (
-        <form name="submitMessage" onSubmit={onSubmit}>
+        <form onSubmit={_onSubmit}>
             <Input
-                name={name}
                 placeholder="Type a message..."
                 autoComplete="off"
+                name={name}
                 value={value}
                 onInput={onInput}
             />
