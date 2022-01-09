@@ -35,7 +35,7 @@ function ChatPage() {
         setSelectedId(id);
     }
 
-    function onCreateConversation() {}
+    function onCreateConversationClick() {}
 
     function onContactClick(user: User) {
         // Find {conversation} where the ONLY recipient is {user}
@@ -47,11 +47,11 @@ function ChatPage() {
             setSelectedId(conversation.id);
             onToggleView();
         } else {
-            onCreateConversation();
+            onCreateConversationClick();
         }
     }
 
-    function onCreateContact() {}
+    function onCreateContactClick() {}
 
     function onToggleView() {
         if (inputs.search !== "") {
@@ -61,15 +61,13 @@ function ChatPage() {
         setView(view === "contacts" ? "conversations" : "contacts");
     }
 
-    function onClearSearch() {
+    function onClearSearchClick() {
         setInput({ search: "" });
     }
 
-    function onSubmitSearch() {
-        console.log("Submit search");
-    }
+    function onSearchSubmit() {}
 
-    function onSubmitMessage() {
+    function onMessageSubmit() {
         dispatch({
             type: "send",
             message: {
@@ -115,8 +113,8 @@ function ChatPage() {
                         name="search"
                         value={inputs.search}
                         onInput={onInput}
-                        onClear={onClearSearch}
-                        onSubmit={onSubmitSearch}
+                        onClear={onClearSearchClick}
+                        onSubmit={onSearchSubmit}
                     />
                     <IconButton
                         icon={[
@@ -152,11 +150,11 @@ function ChatPage() {
                           ))}
                 </div>
                 {view === "conversations" ? (
-                    <Button primary onClick={onCreateConversation}>
+                    <Button primary onClick={onCreateConversationClick}>
                         Create conversation
                     </Button>
                 ) : (
-                    <Button primary onClick={onCreateContact}>
+                    <Button primary onClick={onCreateContactClick}>
                         Create contact
                     </Button>
                 )}
@@ -173,7 +171,7 @@ function ChatPage() {
                         name="message"
                         value={inputs.message}
                         onInput={onInput}
-                        onSubmit={onSubmitMessage}
+                        onSubmit={onMessageSubmit}
                     />
                 </div>
             </section>
