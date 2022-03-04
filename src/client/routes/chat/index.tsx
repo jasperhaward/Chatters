@@ -1,64 +1,57 @@
-import { JSX } from "preact";
-import { useState } from "preact/hooks";
+import {
+    useState,
+    useEffect,
+    useContext,
+    useReducer,
+    Reducer,
+} from "preact/hooks";
 import styles from "./styles.scss";
 
+import { User, Conversation } from "@types";
 import { useForm } from "@hooks";
+import { SessionContext, AppContext } from "@context";
+import * as thunks from "@thunks";
 import { Button, IconButton } from "@components";
 
-import * as variables from "./variables";
-import { User, Inputs, Conversation } from "./types";
+import * as utils from "./utils";
+import { Inputs } from "./types";
 
-import ConversationHandler from "./handler";
-import Contact from "./components/Contact";
-import Divider from "./components/Divider";
-import ConversationComponent from "./components/Conversation";
-import SearchBox from "./components/SearchBox";
-import MessageBox from "./components/MessageBox";
-import MessagesWindow from "./components/MessagesWindow";
+import UserMenu from "./UserMenu";
+import Avatar from "./Avatar";
+import ConversationComponent from "./Conversation";
+import SearchBox from "./SearchBox";
+import MessageBox from "./MessageBox";
+import MessagesWindow from "./MessagesWindow";
 
 function ChatPage() {
-    const [user, setUser] = useState<User>(variables.user);
-    const [contacts, setContacts] = useState<User[]>(variables.contacts);
+    const [{ user }] = useContext(SessionContext);
+    const [{ contacts, conversations }, dispatch] = useContext(AppContext);
+
+    const [selectedId, setSelectedId] = useState<string>();
     const [inputs, onInput, setInput] = useForm<Inputs>({
         search: "",
         message: "",
     });
-    const [view, setView] = useState<"conversations" | "contacts">(
-        "conversations"
-    );
 
-    const { selected, setSelectedId, conversations, dispatch } =
-        ConversationHandler(variables.conversations);
+    const selected = conversations?.find((conversation) => {
+        return conversation.id === selectedId;
+    });
+
+    useEffect(() => {
+        if (user) {
+            dispatch(thunks.initialise({ userId: user.id }));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (conversations) {
+            setSelectedId(conversations[0].id);
+        }
+    }, [conversations]);
 
     function onConversationClick(id: string) {
         setInput({ message: "" });
         setSelectedId(id);
-    }
-
-    function onCreateConversationClick() {}
-
-    function onContactClick(user: User) {
-        // Find {conversation} where the ONLY recipient is {user}
-        const conversation = conversations.find(({ recipients }) => {
-            return recipients.length === 1 && recipients[0] == user;
-        });
-
-        if (conversation) {
-            setSelectedId(conversation.id);
-            onToggleView();
-        } else {
-            onCreateConversationClick();
-        }
-    }
-
-    function onCreateContactClick() {}
-
-    function onToggleView() {
-        if (inputs.search !== "") {
-            setInput({ search: "" });
-        }
-
-        setView(view === "contacts" ? "conversations" : "contacts");
     }
 
     function onClearSearchClick() {
@@ -68,113 +61,78 @@ function ChatPage() {
     function onSearchSubmit() {}
 
     function onMessageSubmit() {
-        dispatch({
-            type: "send",
-            message: {
-                content: inputs.message,
-                createdBy: user.id,
-            },
-        });
+        const message = {
+            conversationId: selected.id,
+            content: inputs.message,
+            createdBy: user.id,
+        };
+
+        dispatch(thunks.sendMessage(message));
         setInput({ message: "" });
-    }
-
-    function getConversationHeader(conversation: Conversation) {
-        const { recipients } = conversation;
-
-        if (recipients.length === 1) {
-            const { firstName, lastName } = recipients[0];
-            return firstName + " " + lastName;
-        } else {
-            return recipients
-                .map((recipient) => recipient.firstName)
-                .join(", ");
-        }
-    }
-
-    function showContactsDivider(index: number, contacts: User[]) {
-        const currContact = contacts[index];
-        const prevContact = index > 0 && contacts[index - 1];
-
-        // Show divider when:
-        // -The current contact is the first contact
-        // -The first letter of the current and previous contacts names differ
-        return (
-            !prevContact ||
-            prevContact.firstName[0] !== currContact.firstName[0]
-        );
     }
 
     return (
         <div className={styles.page}>
-            <section id="navigation">
-                <header>Recents</header>
-                <div className={styles.controls}>
-                    <SearchBox
-                        name="search"
-                        value={inputs.search}
-                        onInput={onInput}
-                        onClick={onClearSearchClick}
-                        onSubmit={onSearchSubmit}
-                    />
-                    <IconButton
-                        icon={[
-                            "fas",
-                            view === "conversations"
-                                ? "user-friends"
-                                : "list-ul",
-                        ]}
-                        onClick={onToggleView}
-                    />
-                </div>
-                <div className={styles.container}>
-                    {view === "conversations"
-                        ? conversations.map((conversation) => (
-                              <ConversationComponent
-                                  selected={conversation.id === selected.id}
-                                  header={getConversationHeader(conversation)}
-                                  conversation={conversation}
-                                  onClick={onConversationClick}
-                              />
-                          ))
-                        : contacts.map((contact, index, contacts) => (
-                              <>
-                                  {showContactsDivider(index, contacts) && (
-                                      <Divider>{contact.firstName[0]}</Divider>
-                                  )}
-                                  <Contact
-                                      key={user}
-                                      contact={contact}
-                                      onClick={onContactClick}
-                                  />
-                              </>
-                          ))}
-                </div>
-                {view === "conversations" ? (
-                    <Button primary onClick={onCreateConversationClick}>
-                        Create conversation
-                    </Button>
-                ) : (
-                    <Button primary onClick={onCreateContactClick}>
-                        Create contact
-                    </Button>
-                )}
-            </section>
-            <section id="messages">
-                <header>{getConversationHeader(selected)}</header>
-                <MessagesWindow
-                    messages={selected.messages.slice().reverse()}
-                    user={user}
-                    contacts={contacts}
-                />
-                <div className={styles.controls}>
-                    <MessageBox
-                        name="message"
-                        value={inputs.message}
-                        onInput={onInput}
-                        onSubmit={onMessageSubmit}
-                    />
-                </div>
-            </section>
+            <UserMenu />
+            {selected && (
+                <>
+                    <section id="navigation">
+                        <header>Recents</header>
+                        <SearchBox
+                            name="search"
+                            value={inputs.search}
+                            onInput={onInput}
+                            onClick={onClearSearchClick}
+                            onSubmit={onSearchSubmit}
+                        />
+                        <div>
+                            {conversations.map((conversation) => (
+                                <ConversationComponent
+                                    key={conversation.id}
+                                    selected={conversation.id === selected.id}
+                                    user={user}
+                                    contacts={contacts}
+                                    conversation={conversation}
+                                    onClick={onConversationClick}
+                                />
+                            ))}
+                        </div>
+                        <Button primary>New chat</Button>
+                    </section>
+                    <section id="messages">
+                        <header>
+                            <Avatar
+                                md
+                                src={utils.getConversationAvatar(selected)}
+                            />
+                            <div>
+                                <span>
+                                    {utils.getConversationHeader(selected)}
+                                </span>
+                                <div>
+                                    {selected.recipients.length > 1
+                                        ? selected.recipients.length +
+                                          " members"
+                                        : "Last message 2 hours ago"}
+                                </div>
+                            </div>
+                            <IconButton icon={["fas", "search"]} />
+                            <IconButton icon={["fas", "user-plus"]} />
+                        </header>
+                        <MessagesWindow
+                            messages={selected.messages.slice().reverse()}
+                            user={user}
+                            contacts={contacts}
+                        />
+                        <MessageBox
+                            name="message"
+                            value={inputs.message}
+                            onInput={onInput}
+                            onSubmit={onMessageSubmit}
+                        />
+                    </section>
+                </>
+            )}
         </div>
     );
 }

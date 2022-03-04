@@ -17,6 +17,9 @@ import {
     faUsers,
     faUserFriends,
     faListUl,
+    faComments,
+    faPlus,
+    faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faLinkedin,
@@ -37,6 +40,9 @@ library.add({
     faUsers,
     faUserFriends,
     faListUl,
+    faComments,
+    faPlus,
+    faUserPlus,
 });
 
 render(<App />, document.body);

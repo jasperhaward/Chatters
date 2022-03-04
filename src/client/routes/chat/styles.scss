@@ -7,52 +7,33 @@
     height: 100%;
     width: 70%;
     margin: 0 auto;
-    backdrop-filter: blur(6px);
-    background-color: colours.$darkened-background-colour;
 
     section[id="navigation"] {
         display: flex;
         flex-direction: column;
         width: 40%;
         max-width: 350px;
-        background-color: rgba(0, 0, 0, 0.15);
+        margin-right: 3px;
+        padding: 10px;
+        backdrop-filter: blur(6px);
+        background-color: colours.$background-colour;
+
+        $margin: 6px;
 
         & > header {
-            margin: 10px;
-            color: colours.$primary-colour;
-            font-weight: fonts.$light-font-weight;
-            letter-spacing: 5px;
+            color: colours.$white;
             font-size: fonts.$xl-font-size;
+            margin-bottom: $margin;
         }
 
-        .controls {
-            display: flex;
-            align-items: center;
-            margin: 0 10px 10px 10px;
-
-            form {
-                flex-grow: 1;
-            }
-
-            & > button {
-                width: 24px;
-                margin-left: 6px;
-                padding: 2px 0;
-                color: colours.$primary-colour;
-
-                svg {
-                    font-size: 20px;
-                }
-            }
-        }
-
-        .container {
+        & > div {
             flex-grow: 1;
+            margin: $margin 0;
             overflow-y: auto;
-        }
 
-        & > button {
-            margin: 10px;
+            article {
+                margin-bottom: $margin;
+            }
         }
     }
 
@@ -62,36 +43,38 @@
         display: flex;
         flex-direction: column;
         padding: 10px;
+        backdrop-filter: blur(6px);
+        background-color: colours.$background-colour;
 
-        & > header {
-            text-align: center;
-            color: colours.$white;
-            font-weight: fonts.$light-font-weight;
-            letter-spacing: 5px;
-            font-size: fonts.$xl-font-size;
-        }
-    }
+        header {
+            display: flex;
+            align-items: center;
 
-    form {
-        display: flex;
-        align-items: center;
-        border-radius: styling.$border-radius;
-        background-color: colours.$dark-background-colour;
+            figure {
+                margin-right: 10px;
+            }
 
-        input {
-            color: colours.$white;
+            div {
+                span {
+                    color: colours.$white;
+                    font-size: fonts.$md-font-size;
+                }
 
-            &:focus::placeholder {
+                div {
+                    color: colours.$grey;
+                    font-size: fonts.$sm-font-size;
+                }
+            }
+
+            button {
+                margin-right: 5px;
                 color: colours.$light-grey;
-            }
+                font-size: fonts.$md-font-size;
 
-            &::placeholder {
-                color: colours.$grey;
+                &:first-of-type {
+                    margin-left: auto;
+                }
             }
-        }
-
-        button {
-            margin-right: 5px;
         }
     }
 }

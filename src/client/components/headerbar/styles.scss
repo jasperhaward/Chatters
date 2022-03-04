@@ -6,14 +6,13 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-color: colours.$darkened-background-colour;
+    background-color: colours.$background-colour;
 }
 
 .headerbarLink {
     padding: 10px;
     font-size: fonts.$xs-font-size;
-    font-weight: fonts.$light-font-weight;
-    letter-spacing: fonts.$wide-letter-spacing;
+    letter-spacing: fonts.$narrow-letter-spacing;
     text-decoration: none;
     color: colours.$grey;
     transition: color 0.3s ease;

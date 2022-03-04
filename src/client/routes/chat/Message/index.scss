@@ -1,0 +1,76 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+@use "../Avatar/index" as avatar;
+
+.message {
+    display: flex;
+    margin-bottom: 2px;
+
+    // if avatar is shown, remove margin-left
+    figure + section {
+        margin-left: 0;
+    }
+
+    section {
+        margin-left: avatar.$sm-avatar-size;
+        padding-left: 5px;
+
+        div {
+            width: fit-content;
+            padding: 6px 10px;
+            border-radius: 17px;
+            font-size: fonts.$md-font-size;
+        }
+
+        time {
+            display: block;
+            color: colours.$light-grey;
+            font-size: fonts.$sm-font-size;
+        }
+
+        &.left {
+            div {
+                color: colours.$white;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            time {
+                margin-left: 10px;
+            }
+        }
+
+        &.left.pointedTop div {
+            border-top-left-radius: styling.$small-border-radius;
+        }
+
+        &.left.pointedBottom div {
+            border-bottom-left-radius: styling.$small-border-radius;
+        }
+
+        &.right {
+            width: 100%;
+            margin-left: 20px;
+
+            div {
+                margin-left: auto;
+                color: colours.$black;
+                background-color: colours.$primary-colour;
+            }
+
+            time {
+                float: right;
+                margin-right: 10px;
+            }
+        }
+
+        &.right.pointedTop div {
+            border-top-right-radius: styling.$small-border-radius;
+        }
+
+        &.right.pointedBottom div {
+            border-bottom-right-radius: styling.$small-border-radius;
+        }
+    }
+}

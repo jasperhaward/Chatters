@@ -15,7 +15,7 @@ body {
         position: center;
         repeat: no-repeat;
         size: cover;
-        color: colours.$darkened-background-colour
+        color: colours.$background-colour;
     }
     box-sizing: border-box;
 }
@@ -24,7 +24,7 @@ body {
     width: 18px;
 }
 
-::-webkit-scrollbar-thumb {    
+::-webkit-scrollbar-thumb {
     border: 5px solid transparent;
     border-radius: 10px;
     background-color: rgb(0 0 0 / 45%);

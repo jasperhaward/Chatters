@@ -1,0 +1,25 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+.message {
+    display: flex;
+    align-items: center;
+    padding: styling.$padding;
+    border-radius: styling.$border-radius;
+    background-color: colours.$background-colour;
+
+    svg {
+        color: colours.$light-grey;
+    }
+
+    input {
+        margin-right: 4px;
+        color: colours.$light-grey;
+        font-size: fonts.$sm-font-size;
+
+        &::placeholder {
+            color: inherit;
+        }
+    }
+}

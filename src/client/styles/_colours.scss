@@ -1,14 +1,13 @@
-$white: #ffffff;
-$light-grey: #b7b7b7;
-$grey: #949494;
-$dark-grey: #5e5e5e;
-$black: #000000;
+$white: rgba(255, 255, 255, 1);
+$light-grey: rgba(190, 190, 190, 1);
+$grey: rgba(148, 148, 148, 1);
+$dark-grey: rgba(30, 30, 30, 1);
+$black: rgba(0, 0, 0, 1);
 
 $primary-colour-light: rgba(29, 255, 239, 1);
 $primary-colour: rgba(31, 255, 214, 0.65);
 $primary-colour-dark: rgb(42, 163, 155);
 
-$secondary-colour: #35ee02;
+$secondary-colour: rgba(114, 93, 255, 1);
 
-$darkened-background-colour: rgb(0 0 0 / 35%);
-$dark-background-colour: rgb(0 0 0 / 60%);
+$background-colour: rgba(0, 0, 0, 0.4);

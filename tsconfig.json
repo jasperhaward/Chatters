@@ -8,11 +8,21 @@
         "allowSyntheticDefaultImports": true,
         "jsx": "react-jsx",
         "jsxImportSource": "preact",
+        "baseUrl": ".",
         "paths": {
+            "react": ["preact/compat"],
+            "react-dom/test-utils": ["preact/test-utils"],
+            "react-dom": ["preact/compat"],     
+            "react/jsx-runtime": ["preact/jsx-runtime"],
+            "@api": ["./src/client/api/index.tsx"],
             "@components": ["./src/client/components/index.tsx"],
+            "@context": ["./src/client/context/index.tsx"],
             "@hooks": ["./src/client/hooks/index.tsx"],
-            "@styles": ["./src/client/styles/index.tsx"]
-        }
+            "@styles": ["./src/client/styles/index.tsx"],
+            "@thunks": ["./src/client/context/thunks/index.tsx"],
+            "@types": ["./src/client/types/index.tsx"],
+            "@utils": ["./src/client/utils/index.tsx"]
+        },
     },
     "include": ["src/client/**/*"]
 }

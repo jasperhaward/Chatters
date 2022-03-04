@@ -1,16 +1,5 @@
 @use "@styles/styling" as styling;
-@use "@styles/colours" as colours;
 
 .iconButton {
     @extend %button-base;
-    padding: 5px;
-    color: colours.$white;
-
-    &:hover {
-        color: colours.$grey;
-    }
-
-    &:disabled {
-        opacity: 1;
-    }
 }

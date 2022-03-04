@@ -1,0 +1,32 @@
+@use "@styles/fonts" as fonts;
+@use "@styles/colours" as colours;
+@use "@styles/styling" as styling;
+
+.search {
+    display: flex;
+    align-items: center;
+    padding: styling.$padding;
+    border-radius: styling.$border-radius;
+    background-color: colours.$background-colour;
+
+    svg {
+        color: colours.$light-grey;
+
+        &[data-icon="search"] {
+            font-size: fonts.$sm-font-size;
+        }
+    }
+
+    input {
+        margin: {
+            left: 4px;
+            right: 4px;
+        }
+        color: colours.$light-grey;
+        font-size: fonts.$sm-font-size;
+
+        &::placeholder {
+            color: inherit;
+        }
+    }
+}

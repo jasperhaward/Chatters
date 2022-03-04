@@ -8,7 +8,7 @@
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     padding: 10px;
-    background-color: colours.$darkened-background-colour;
+    background-color: colours.$background-colour;
 
     .left {
         grid-area: left;
@@ -37,7 +37,7 @@
 }
 
 .text {
-    color: colours.$dark-grey;
+    color: colours.$grey;
     font-size: fonts.$xs-font-size;
     letter-spacing: fonts.$narrow-letter-spacing;
 }
